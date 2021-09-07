@@ -1,0 +1,43 @@
+﻿@model IEnumerable<LeerPlatform_Team2.TblFunctionaliteiten>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Functionaliteiten</h1>
+<br />
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Nieuwe functionaliteit</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FunctionaliteitId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Beschrijving)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FunctionaliteitId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Beschrijving)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-success" style="width: 92px; font-size: 14px" asp-route-id="@item.FunctionaliteitId">Aanpassen</a> 
+                <a asp-action="Delete" class="btn btn-danger" style="width: 92px; font-size: 14px" asp-route-id="@item.FunctionaliteitId">Verwijderen</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <a class="btn btn-outline-info" asp-area="" asp-controller="Lokalen" asp-action="Index">Terug</a>
+</div>

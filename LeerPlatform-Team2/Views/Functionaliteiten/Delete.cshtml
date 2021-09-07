@@ -1,0 +1,24 @@
+﻿@model LeerPlatform_Team2.TblFunctionaliteiten
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Verwijderen functionaliteit</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Beschrijving)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Beschrijving)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="FunctionaliteitId" />
+        <input type="submit" value="Verwijderen" class="btn btn-danger" />
+        <a asp-action="Index"class="btn btn-outline-info">Terug</a>
+    </form>
+</div>

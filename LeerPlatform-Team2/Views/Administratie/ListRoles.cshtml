@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+
+
+<h1>Alle rollen:</h1>
+
+
+@foreach (var role in Model)
+ {
+    <div class="card mb-3">
+        <div class="card-header">
+            Role Id : @role.Id
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@role.Name</h5>
+        </div>
+        <div class="card-footer">
+            <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">
+                <a class="btn btn-info" asp-action="EditRole" asp-controller="Administratie" asp-route-id="@role.Id">Bijwerken</a>
+            </form>
+        </div>
+    </div>
+ }
+

@@ -1,0 +1,42 @@
+﻿@model List<LeerPlatform_Team2.Models.InschrijvingJoinPlanning>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Overzicht inschrijvingen</h1>
+<br />
+<p>
+    <a class="btn btn-info" asp-controller="Inschrijvingen" asp-action="Create">Nieuwe inschrijving</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lescode</th>
+            <th>Status</th>
+            <th>Tijdstip volgende les</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(x => x.inschrijving.GebruikerNaam == User.Identity.Name))
+        {
+        <tr>
+            <td>@item.inschrijving.Lescode</td>
+            <td>@item.inschrijving.Status</td>
+            @if (item.planning.StartTijdstip < DateTime.Now)
+            {
+                <td></td>
+            }
+            else
+            {
+                <td>@item.planning.StartTijdstip</td>
+            }
+            <td>
+                <a asp-controller="Inschrijvingen" asp-action="Delete" class="btn btn-danger" style="width: 92px; font-size: 14px" asp-route-id="@item.inschrijving.InschrijvingId">Uitschrijven</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

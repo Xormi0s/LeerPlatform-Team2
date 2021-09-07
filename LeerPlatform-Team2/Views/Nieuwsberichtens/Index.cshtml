@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LeerPlatform_Team2.Models.Nieuwsberichten>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Nieuwsberichtenlijst</h1>
+<br />
+<p>
+    <a class="btn btn-info" asp-controller="Nieuwsberichtens" asp-action="Create">Nieuw bericht</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bericht)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bericht)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BerichtenID" class="btn btn-success" style="width: 92px; font-size: 14px">Aanpassen</a>
+                <a asp-action="Delete" asp-route-id="@item.BerichtenID" class="btn btn-danger" style="width: 92px; font-size: 14px">Verwijderen</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

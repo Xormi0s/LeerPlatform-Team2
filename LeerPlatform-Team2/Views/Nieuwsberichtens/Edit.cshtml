@@ -1,0 +1,53 @@
+﻿@model LeerPlatform_Team2.Models.Nieuwsberichten
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Aanpassen bericht</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BerichtenID" />
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label"></label>
+                <input asp-for="Datum" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titel" class="control-label"></label>
+                <input asp-for="Titel" class="form-control" />
+                <span asp-validation-for="Titel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bericht" class="control-label"></label>
+                <input asp-for="Bericht" class="form-control" />
+                <span asp-validation-for="Bericht" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Opslaan" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*Resize nog verder af te werken*@
+
+@*<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $(function () {
+        $("#resizable").resizable({
+            handles: "se"
+        });
+    });
+</script>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

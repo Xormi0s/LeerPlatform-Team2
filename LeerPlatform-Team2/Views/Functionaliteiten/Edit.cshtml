@@ -1,0 +1,31 @@
+﻿@model LeerPlatform_Team2.TblFunctionaliteiten
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Aanpassen</h1>
+
+<h4>Functionaliteit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FunctionaliteitId" />
+            <div class="form-group">
+                <label asp-for="Beschrijving" class="control-label"></label>
+                <input asp-for="Beschrijving" class="form-control" />
+                <span asp-validation-for="Beschrijving" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Opslaan" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-outline-info">Terug</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

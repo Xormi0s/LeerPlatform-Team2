@@ -1,0 +1,40 @@
+﻿@model LeerPlatform_Team2.TblLokalen
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Aanpassen</h1>
+
+<h4>Lokaal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Lokaalnummer" class="control-label"></label>
+                <input asp-for="Lokaalnummer" class="form-control" />
+                <span asp-validation-for="Lokaalnummer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Locatie" class="control-label"></label>
+                <input asp-for="Locatie" class="form-control" />
+                <span asp-validation-for="Locatie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capaciteit" class="control-label"></label>
+                <input asp-for="Capaciteit" class="form-control" />
+                <span asp-validation-for="Capaciteit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Functionaliteiten
+                @Html.DropDownList("FunctionaliteitenId", (SelectList)ViewBag.functie, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Opslaan" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-outline-info">Terug</a>
+            </div>
+        </form>
+    </div>
+</div>

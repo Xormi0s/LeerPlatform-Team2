@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LeerPlatform_Team2.Models.Nieuwsberichten>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welkom</h1>
+    <p>Welkom op het LeerPlatform.</p>
+</div>
+
+<h3>Nieuwsberichten</h3>
+<br />
+<table>
+    @foreach (var item in Model.TakeLast(5))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => item.Titel)</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bericht)
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 10%">
+            </td>
+            <td>
+                <hr />
+            </td>
+        </tr>
+    }
+</table>
+
+@if (User.IsInRole("Editor"))
+{
+    <a class="btn btn-info" asp-controller="Nieuwsberichtens" asp-action="Create">Nieuw bericht plaatsen</a>
+    <a class="btn btn-info" asp-controller="Nieuwsberichtens" asp-action="Index">Nieuwsberichten beheren</a>
+}
+

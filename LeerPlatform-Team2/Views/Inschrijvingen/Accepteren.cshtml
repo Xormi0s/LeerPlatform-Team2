@@ -1,0 +1,47 @@
+﻿@model LeerPlatform_Team2.Models.Inschrijvingen
+
+@{
+    ViewData["Title"] = "Accepteren";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Accepteren</h1>
+
+<h4>Inschrijvingen</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GebruikerNaam" class="control-label"></label>
+                @{
+                    var GebruikerNaam = User.Identity.Name;
+                }
+                <input asp-for="@GebruikerNaam" class="form-control" readonly />
+                <span asp-validation-for="GebruikerNaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Les
+                @Html.DropDownList("Lescode", (SelectList)ViewBag.les, new { @class = "form-control" })
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <select asp-for="Status" class="form-control" asp-items="Html.GetEnumSelectList<Status>()" disabled="@(User.IsInRole("Student"))">
+
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="InschrijvingPlanning" asp-action="Index">Terug naar de lijst</a>
+</div>
+
+@**@
+

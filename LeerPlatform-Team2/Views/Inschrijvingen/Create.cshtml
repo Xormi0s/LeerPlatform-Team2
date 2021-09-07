@@ -1,0 +1,47 @@
+﻿@model LeerPlatform_Team2.Models.Inschrijvingen
+@using Microsoft.AspNetCore.Identity; 
+@inject UserManager<TblGebruiker> userManager;
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Nieuwe inschrijving</h1>
+
+<h4>Inschrijvingen</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GebruikerNaam" class="control-label"></label>
+                @{
+                    var GebruikerNaam = User.Identity.Name;
+                }
+                <input asp-for="@GebruikerNaam" class="form-control" readonly />
+                <span asp-validation-for="GebruikerNaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GebruikerNavigationId" class="control-label" hidden></label>
+                @{
+                    
+                    var GebruikerNavigationId = userManager.GetUserId(User);
+                }
+                <input asp-for="@GebruikerNavigationId" class="form-control" hidden />
+                <span asp-validation-for="GebruikerNavigationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Les
+                @Html.DropDownList("LescodeList", (SelectList)ViewBag.les, new { @class = "form-control" })
+            </div>
+            <p class="text-danger">
+                @Html.ValidationMessageFor(Model => Model.Lescode)
+            </p>
+            <div class="form-group">
+                <input type="submit" value="Inschrijven" class="btn btn-primary" />
+                <a asp-controller="InschrijvingPlanning" asp-action="Index">Terug naar de lijst</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@model LeerPlatform_Team2.TblPlanning
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Verwijderen planning</h1>
+
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartTijdstip)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartTijdstip)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EindTijdstip)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EindTijdstip)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExtraInfo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExtraInfo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lescode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lescode)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lokaalnummer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lokaalnummer)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Reekscode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Reekscode)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="PlanningId" />
+        <input type="submit" value="Verwijderen" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-outline-info">Terug</a>
+    </form>
+</div>

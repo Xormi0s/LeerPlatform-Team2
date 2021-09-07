@@ -1,0 +1,42 @@
+﻿@model LeerPlatform_Team2.TblLokalen
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Lokaal details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lokaalnummer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lokaalnummer)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Locatie)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Locatie)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Capaciteit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Capaciteit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Functionaliteiten)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Functionaliteiten.Beschrijving)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Lokaalnummer">Aanpassen</a>
+    <a asp-action="Index">Terug</a>
+</div>
+@* Momenteel niet in gebruik *@

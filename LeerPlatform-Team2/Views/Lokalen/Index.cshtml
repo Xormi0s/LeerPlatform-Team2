@@ -1,0 +1,122 @@
+﻿@model IEnumerable<LeerPlatform_Team2.TblLokalen>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lokalen beheren</h1>
+<br />
+
+@if (User.IsInRole("Docent"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-info">Nieuw lokaal</a>
+        <a class="btn btn-info" asp-controller="Functionaliteiten" asp-action="Index">Functionaliteiten</a>
+    </p>
+}
+
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lokaalnummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locatie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capaciteit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Functionaliteiten)
+            </th>
+            @if (User.IsInRole("Docent"))
+            {
+                <th>Verwijderen</th>
+            }
+                
+        </tr>
+    </thead>
+</table>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
+<style>
+    #myTable tbody tr {
+        cursor: pointer;
+    }
+</style>
+
+@section Scripts{
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+@if (!User.IsInRole("Docent"))
+{
+    <script>
+$(function () {
+        $('#myTable').DataTable({
+            "ajax": {
+                "url": "/Lokalen/LoadAllLokalenSS",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "Lokaalnummer", "name": "Lokaalnummer" },
+                { "data": "Locatie", "name": "Locatie" },
+                { "data": "Capaciteit", "name": "Capaciteit" },
+                { "data": "Functionaliteiten.Beschrijving", "name": "Functionaliteiten", "defaultContent": " " }
+            ],
+            "serverSide": true,
+			"order": [0, "asc"],
+			"proccessing": true
+        });
+    });
+
+    </script>
+}
+
+
+    @if (User.IsInRole("Docent"))
+    {
+      <script>
+    $(function () {
+            $('#myTable').DataTable({
+                "ajax": {
+                    "url": "/Lokalen/LoadAllLokalenSS",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Lokaalnummer", "name": "Lokaalnummer" },
+                    { "data": "Locatie", "name": "Locatie" },
+                    { "data": "Capaciteit", "name": "Capaciteit" },
+                    { "data": "Functionaliteiten.Beschrijving", "name": "Functionaliteiten", "defaultContent": " " },
+                    { "data": null, "defaultContent": "<a href='' class='del'>Delete</a>" }
+                ],
+                "serverSide": true,
+				"order": [0, "asc"],
+				"proccessing": true
+            });
+
+            $('#myTable tbody').on('click', 'tr', function (e) {
+                e.preventDefault();
+                var Lokaalnummer = $("td:first", this).text();
+
+                if ($(e.target).is("a.del")) {
+                    $.get('@Url.Action("Delete", "Lokalen")', { id: Lokaalnummer }, function (data) {
+                        $("body").html(data);
+                    }); return;
+                }
+
+                $.get('@Url.Action("Edit","Lokalen")', { id: Lokaalnummer }, function (data) {
+                    $("body").html(data);
+                });
+            });
+
+        });
+        </script>
+    }
+}
+
+
+

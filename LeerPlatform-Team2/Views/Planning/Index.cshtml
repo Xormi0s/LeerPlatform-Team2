@@ -1,0 +1,142 @@
+﻿@model IEnumerable<LeerPlatform_Team2.TblPlanning>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Planning overzicht</h1>
+<br />
+<p>
+    <br />
+    @if (User.IsInRole("Docent"))
+    {
+        <a asp-action="Create" class="btn btn-info">Nieuwe planning</a>
+    }
+
+</p>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PlanningId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lokaalnummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lescode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reekscode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTijdstip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EindTijdstip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtraInfo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+<br />
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
+<style>
+    #myTable tbody tr {
+        cursor: pointer;
+    }
+</style>
+
+@section Scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+    @if (!User.IsInRole("Docent"))
+    {
+        <script>
+            $(function () {
+                $('#myTable').DataTable({
+                    "ajax": {
+                        "url": "/Planning/LoadAllPlanningSS",
+                        "type": "POST",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "PlanningId", "name": "PlanningId" },
+                        { "data": "Lokaalnummer", "name": "Lokaalnummer" },
+                        { "data": "Lescode", "name": "Lescode" },
+                        { "data": "Reekscode", "name": "Reekscode" },
+                        { "data": "StartTijdstip", "name": "StartTijdstip" },
+                        { "data": "EindTijdstip", "name": "EindTijdstip" },
+                        { "data": "ExtraInfo", "name": "ExtraInfo", "defaultContent": " " }
+                    ],
+                    "columnDefs": [{
+                        "targets": 0,
+                        "visible": false,
+                        "searchable": false
+                    }],
+                    "serverSide": true,
+                    "order": [0, "asc"],
+                    "proccessing": true
+                });
+            });
+
+        </script>
+    }
+
+
+    @if (User.IsInRole("Docent"))
+    {
+        <script>
+    $(function () {
+            $('#myTable').DataTable({
+                "ajax": {
+                    "url": "/Planning/LoadAllPlanningSS",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "PlanningId", "name": "PlanningId" },
+                    { "data": "Lokaalnummer", "name": "Lokaalnummer" },
+                    { "data": "Lescode", "name": "Lescode" },
+                    { "data": "Reekscode", "name": "Reekscode" },
+                    { "data": "StartTijdstip", "name": "StartTijdstip" },
+                    { "data": "EindTijdstip", "name": "EindTijdstip" },
+                    { "data": "ExtraInfo", "name": "ExtraInfo", "defaultContent": " " },
+                    { "data": null, "defaultContent": "<a href='' class='del'>Delete</a>" }
+                ],
+                "columnDefs": [{
+                    "targets": 0,
+                    "visible": false,
+                    "searchable": false
+                }],
+                "serverSide": true,
+				"order": [0, "asc"],
+				"proccessing": true
+            });
+
+            $('#myTable tbody').on('click', 'tr', function (e) {
+                e.preventDefault();
+
+                var currentRow = $(this).closest("tr");
+
+                var data = $('#myTable').DataTable().row(currentRow).data();
+
+                if ($(e.target).is("a.del")) {
+                    $.get('@Url.Action("Delete", "Planning")', { id: data['PlanningId'] }, function (data) {
+                        $("body").html(data);
+                    }); return;
+                }
+
+                $.get('@Url.Action("Edit", "Planning")', { id: data['PlanningId'] }, function (data) {
+                    $("body").html(data);
+                });
+            });
+
+        });
+        </script>
+    }
+}

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<LeerPlatform_Team2.Models.Inschrijvingen>
+
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Lijst met goedgekeurde inschrijvingen</h1>
+<br />
+
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                InschrijvingId
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GebruikerNaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GebruikerNavigation.Voornaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GebruikerNavigation.Achternaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lescode)
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+</table>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
+<style>
+    #myTable tbody tr {
+        cursor: pointer;
+    }
+</style>
+
+@section Scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+    <script>
+    $(function () {
+            $('#myTable').DataTable({
+                "ajax": {
+                    "url": "/Inschrijvingen/LoadAllIngeschrevenSS",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "InschrijvingId", "name": "InschrijvingId" },
+                    { "data": "GebruikerNaam", "name": "GebruikerNaam" },
+                    { "data": "GebruikerNavigation.Voornaam", "name": "Voornaam" },
+                    { "data": "GebruikerNavigation.Achternaam", "name": "Achternaam" },
+                    { "data": "Lescode", "name": "Lescode" },
+                    { "data": null, "defaultContent": "<a href='' class='val'>Aanpassen</a>" },
+                    { "data": null, "defaultContent": "<a href='' class='del'>Delete</a>" }
+                ],
+                "columnDefs": [{
+                    "targets": 0,
+                    "visible": false,
+                    "searchable": false
+                }],
+                "serverSide": true,
+				"order": [0, "asc"],
+				"proccessing": true
+            });
+
+            $('#myTable tbody').on('click', 'tr', function (e) {
+                e.preventDefault();
+                var testid = $("td:first", this).text();
+
+                var currentRow = $(this).closest("tr");
+
+                var data = $('#myTable').DataTable().row(currentRow).data();
+
+                if ($(e.target).is("a.del")) {
+                    $.get('@Url.Action("Delete", "Inschrijvingen")', { id: data['InschrijvingId'] }, function (data) {
+                        $("body").html(data);
+                    }); return;
+                }
+
+                $.get('@Url.Action("Edit", "Inschrijvingen")', { id: data['InschrijvingId'] }, function (data) {
+                    $("body").html(data);
+                });
+            });
+    });
+    </script>
+}
+<p><a asp-controller="Inschrijvingen" asp-action="Index">Terug naar inschrijvingen</a></p>
